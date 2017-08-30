@@ -12,13 +12,13 @@ JavaScript module for Mozilla&#39;s Speech-to-text REST API.
 Install via npm:
 
 ```bash
-npm install speaktome
+npm install speaktome-node
 ```
 
 ## Usage
 
 ```js
-var speech = require('speaktome');
+var speech = require('speaktome-node');
 
 speech.send(data).then(results => {
 
