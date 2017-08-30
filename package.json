@@ -1,0 +1,27 @@
+{
+  "name": "speaktome",
+  "version": "0.1.0",
+  "description": "Module for using Mozilla's speech-to-text API from Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodeunit tests/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mozilla/speaktome#readme"
+  },
+  "keywords": [
+    "Mozilla",
+    "speech",
+    "speech recognition",
+    "STT"
+  ],
+  "dependencies": {
+    "node-fetch": "^1.7.2"
+  },
+  "devDependencies": {
+    "nodeunit": "^0.11.1"
+  },
+  "homepage": "https://github.com/mozilla/speaktome#readme",
+  "license": "MPL"
+}
