@@ -1,4 +1,4 @@
-# Mozilla Speech API
+# Speak To Me - Mozilla Speech Recognition API
 
 <!--
 [![Version](http://img.shields.io/npm/v/mozillaspeechapi.svg?style=flat-square)](https://npmjs.org/package/mozillaspeechapi)
@@ -12,13 +12,13 @@ JavaScript module for Mozilla&#39;s Speech-to-text REST API.
 Install via npm:
 
 ```bash
-npm install mozillaspeechapi
+npm install speaktome
 ```
 
 ## Usage
 
 ```js
-var speech = require('mozillaspeechapi');
+var speech = require('speaktome');
 
 speech.send(data).then(results => {
 
