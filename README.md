@@ -32,3 +32,18 @@ speech.send(data).then(results => {
 
 }).catch(console.error);
 ```
+
+## Development Notes
+
+Install opus-tools for command line utilities to test Opus encoding/decoding/playback
+
+```bash
+brew intall opus-tools
+```
+
+Command for encoding raw sound files recorded from system microphone to Opus
+
+```bash
+opusenc --raw --raw-rate 16000 --raw-chan 1 recording.raw recording.opus
+```
+

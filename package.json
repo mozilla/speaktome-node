@@ -17,11 +17,19 @@
     "STT"
   ],
   "dependencies": {
-    "node-fetch": "^1.7.2"
+    "node-fetch": "^1.7.2",
+    "mic": "^2.1.1",
+    "opusscript": "^0.0.3",
+    "cjopus": "^0.0.4",
+    "node-opus": "^0.2.6",
+    "libopus.js": "^0.0.1",
+    "is-opus": "^1.0.0",
+    "read-chunk": "^2.1.0",
+    "ogg": "^1.2.5"
   },
   "devDependencies": {
     "nodeunit": "^0.11.1"
   },
   "homepage": "https://github.com/mozilla/speaktome-node#readme",
-  "license": "MPL"
+  "license": "MPL-2.0"
 }
