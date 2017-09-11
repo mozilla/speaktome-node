@@ -5,13 +5,26 @@
 [![License](http://img.shields.io/npm/l/mozillaspeechapi.svg?style=flat-square)](https://npmjs.org/package/mozillaspeechapi)
 -->
 
-JavaScript module for Mozilla&#39;s Speech-to-text REST API.
+Node.js module for SpeakToMe, Mozilla&#39;s Speech-to-text REST API.
+
+Supports recording of audio on local system, encoding and sending the recording to Mozilla's service for processing, and retrieval of results.
 
 ## Installation
+
+Support for recording from system or USB mics is through the [`mic` package](https://www.npmjs.com/package/mic), which depends on installation OS-specific recording utilities:
+
+Windows and Mac OS X require SOX and Linux requires ALSA tools.
+
+* Windows: Download and install [SOX from the website](http://sox.sourceforge.net/)
+
+* Linux: ```sudo apt-get install alsa-base alsa-utils```
+
+* Mac OS X: ```brew install sox```
 
 Install via npm:
 
 ```bash
+
 npm install speaktome-node
 ```
 
@@ -20,7 +33,7 @@ npm install speaktome-node
 ```js
 var speech = require('speaktome-node');
 
-speech.send(data).then(results => {
+speech.record().then(results => {
 
   // Results is an array of objects containing
   // `text` and `confidence` properties:
