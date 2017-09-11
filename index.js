@@ -61,9 +61,6 @@ function record() {
       // over the network to the API endpoint.
       var buffer = Buffer.concat(bufs);
 
-      // For testing fidelity of encoded recording.
-      fs.writeFile('buffer.opus', buffer, 'binary', console.error);
-
       sendRecordingToServer(buffer).then(results => {
         res(results);
       }).catch(err => {
