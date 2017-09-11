@@ -19,12 +19,7 @@
   "dependencies": {
     "node-fetch": "^1.7.2",
     "mic": "^2.1.1",
-    "opusscript": "^0.0.3",
-    "cjopus": "^0.0.4",
-    "node-opus": "^0.2.6",
-    "libopus.js": "^0.0.1",
-    "is-opus": "^1.0.0",
-    "read-chunk": "^2.1.0",
+    "node-opus": "^0.2.7",
     "ogg": "^1.2.5"
   },
   "devDependencies": {
