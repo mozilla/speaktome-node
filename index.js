@@ -3,7 +3,7 @@ var mic = require('mic');
 var opus = require('node-opus');
 var ogg = require('ogg');
 
-var STT_SERVER_URL = 'https://speaktome.services.mozilla.com';
+var STT_SERVER_URL = 'https://speaktome-2.services.mozilla.com/';
 
 function sendRecordingToServer(opusBuffer) {
   return new Promise(function(resolve, reject) {

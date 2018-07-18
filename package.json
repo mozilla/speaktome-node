@@ -1,6 +1,6 @@
 {
   "name": "speaktome-node",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Module for using Mozilla's speech-to-text API from Node.js",
   "main": "index.js",
   "scripts": {
