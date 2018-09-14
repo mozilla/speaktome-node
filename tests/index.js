@@ -13,7 +13,7 @@ exports.testSendFileToServer = function(test) {
   fs.readFile('tests/test.opus', function (err, data) {
     speech.send(data).then(function(results) {
       test.ok(results.length == 1, 'Server should return a single result.');
-      test.ok(results[0].text == 'TEST', 'Server result should match input');
+      test.ok(results[0].text.toLowerCase() == 'test', 'Server result should match input');
       test.done();
     }).catch(console.error);
   });
@@ -31,12 +31,13 @@ exports.testSendRecordingToServer = function(test) {
   speech.record().then(function(results) {
     test.ok(results.length >= 1, 'Server should return a result.');
     var match = results.some(function(result) {
-      return result.text === text.toUpperCase();
+      return result.text.toLowerCase() === text.toLowerCase();
     });
     test.ok(match, 'Server result should match input');
     test.done();
   }).catch(err => {
     console.error(err);
+    test.ok(err == 1, 'Server request should not throw error');
     test.done();
   });
   const { exec } = require('child_process');
