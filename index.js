@@ -5,11 +5,44 @@ var ogg = require('ogg');
 
 var STT_SERVER_URL = 'https://speaktome-2.services.mozilla.com/';
 
-function sendRecordingToServer(opusBuffer) {
+function sendRecordingToServer(opusBuffer, options) {
+  var config = {
+    language: 'en-US',
+    productTag: null,
+    storeSample: false,
+    storeTranscription: false,
+  };
+
+  if (typeof options === 'object') {
+    if (options.language) {
+      config.language = options.language;
+    }
+    if (options.productTag) {
+      config.productTag = options.productTag;
+    }
+    if (typeof options.storeSample === 'boolean') {
+      config.storeSample = options.storeSample;
+    }
+    if (typeof options.storeTranscription === 'boolean') {
+      config.storeTranscription = options.storeTranscription;
+    }
+  }
+
   return new Promise(function(resolve, reject) {
+    var headers = {
+      'Accept-Language-STT': config.language,
+      'Store-Sample': config.storeSample ? '1' : '0',
+      'Store-Transcription': config.storeTranscription ? '1' : '0',
+    };
+
+    if (config.productTag) {
+      headers['Product-Tag'] = config.productTag;
+    }
+
     fetch(STT_SERVER_URL, {
       method: "POST",
-      body: opusBuffer
+      body: opusBuffer,
+      headers: headers,
     })
     .then(function(response) {
       return response.json();
@@ -31,7 +64,7 @@ exports.send = sendRecordingToServer;
 // Listen, record, send to server.
 // Promise that returns array of results
 // from server.
-function record() {
+function record(options) {
   return new Promise((res, rej) => {
     var micInstance = mic({
       'rate': '16000',
@@ -61,7 +94,7 @@ function record() {
       // over the network to the API endpoint.
       var buffer = Buffer.concat(bufs);
 
-      sendRecordingToServer(buffer).then(results => {
+      sendRecordingToServer(buffer, options).then(results => {
         res(results);
       }).catch(err => {
         console.error('ERR', err);
