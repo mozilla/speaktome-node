@@ -4,27 +4,38 @@
   "description": "Module for using Mozilla's speech-to-text API from Node.js",
   "main": "index.js",
   "scripts": {
+    "format": "prettier index.js --tab-width=2 --arrow-parens=always --trailing-comma=es5 --no-bracket-spacing --write",
+    "lint": "eslint index.js",
     "test": "nodeunit tests/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mozilla/speaktome-node"
+    "url": "git+https://github.com/mozilla/speaktome-node.git"
   },
   "keywords": [
     "Mozilla",
     "speech",
     "speech recognition",
+    "speak to me",
+    "speaktome",
     "STT"
   ],
-  "dependencies": {
-    "node-fetch": "^2.2.0",
-    "mic": "^2.1.1",
-    "node-opus": "^0.3.0",
-    "ogg": "^1.2.5"
-  },
-  "devDependencies": {
-    "nodeunit": "^0.11.3"
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/mozilla/speaktome-node/issues"
   },
   "homepage": "https://github.com/mozilla/speaktome-node#readme",
-  "license": "MPL-2.0"
+  "devDependencies": {
+    "eslint": "^5.7.0",
+    "eslint-plugin-mozilla": "^0.16.1",
+    "eslint-plugin-no-unsanitized": "^3.0.2",
+    "nodeunit": "^0.11.3",
+    "prettier": "^1.14.3"
+  },
+  "dependencies": {
+    "node-fetch": "^2.2.0",
+    "mic": "^2.1.2",
+    "node-opus": "^0.3.0",
+    "ogg": "^1.2.5"
+  }
 }
