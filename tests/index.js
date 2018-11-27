@@ -1,5 +1,12 @@
 var speech = require('../index.js');
 
+var options = {
+  language: 'en-US',
+  productTag: 'speaktome-node',
+  storeSample: false,
+  storeTranscription: false,
+};
+
 /*
 
 Reads a known-good opus file into a buffer and sends to the cloud
@@ -11,7 +18,7 @@ Tests the network request code and response handling.
 exports.testSendFileToServer = function(test) {
   var fs = require('fs');
   fs.readFile('tests/test.opus', function (err, data) {
-    speech.send(data).then(function(results) {
+    speech.send(data, options).then(function(results) {
       test.ok(results.length == 1, 'Server should return a single result.');
       test.ok(results[0].text.toLowerCase() == 'test', 'Server result should match input');
       test.done();
@@ -28,7 +35,7 @@ ensure fidelity of recording/encoding process.
 */
 exports.testSendRecordingToServer = function(test) {
   var text = 'test';
-  speech.record().then(function(results) {
+  speech.record(options).then(function(results) {
     test.ok(results.length >= 1, 'Server should return a result.');
     var match = results.some(function(result) {
       return result.text.toLowerCase() === text.toLowerCase();
