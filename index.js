@@ -1,12 +1,12 @@
-var fetch = require("node-fetch");
-var mic = require("mic");
-var opus = require("node-opus");
-var ogg = require("ogg");
+const fetch = require("node-fetch");
+const mic = require("mic");
+const opus = require("node-opus");
+const ogg = require("ogg");
 
-var STT_SERVER_URL = "https://speaktome-2.services.mozilla.com/";
+const STT_SERVER_URL = "https://speaktome-2.services.mozilla.com/";
 
 function sendRecordingToServer(opusBuffer, options) {
-  var config = {
+  const config = {
     language: "en-US",
     productTag: null,
     storeSample: false,
@@ -29,7 +29,7 @@ function sendRecordingToServer(opusBuffer, options) {
   }
 
   return new Promise(function(resolve, reject) {
-    var headers = {
+    const headers = {
       "Accept-Language-STT": config.language,
       "Store-Sample": config.storeSample ? "1" : "0",
       "Store-Transcription": config.storeTranscription ? "1" : "0",
@@ -65,24 +65,24 @@ exports.send = sendRecordingToServer;
 // from server.
 function record(options) {
   return new Promise((res, rej) => {
-    var micInstance = mic({
+    const micInstance = mic({
       rate: "16000",
       channels: "1",
       debug: true,
       exitOnSilence: 3,
     });
 
-    var micInputStream = micInstance.getAudioStream();
+    const micInputStream = micInstance.getAudioStream();
 
     // Encode the file as Opus in an Ogg container, to send to server.
-    var rate = 16000;
-    var channels = 1;
-    var opusEncodeStream = new opus.Encoder(rate, channels);
-    var oggEncoder = new ogg.Encoder();
+    const rate = 16000;
+    const channels = 1;
+    const opusEncodeStream = new opus.Encoder(rate, channels);
+    const oggEncoder = new ogg.Encoder();
 
     micInputStream.pipe(opusEncodeStream).pipe(oggEncoder.stream());
 
-    var bufs = [];
+    const bufs = [];
 
     oggEncoder.on("data", function(buffer) {
       bufs.push(buffer);
@@ -91,7 +91,7 @@ function record(options) {
     oggEncoder.on("end", function() {
       // Package up encoded recording into buffer to send
       // over the network to the API endpoint.
-      var buffer = Buffer.concat(bufs);
+      const buffer = Buffer.concat(bufs);
 
       sendRecordingToServer(buffer, options)
         .then((results) => {

@@ -26,7 +26,7 @@ npm install speaktome-node
 ## Usage
 
 ```js
-var speech = require('speaktome-node');
+const speech = require('speaktome-node');
 
 speech.record().then(results => {
 
@@ -54,4 +54,3 @@ Command for encoding raw sound files recorded from system microphone to Opus:
 ```bash
 opusenc --raw --raw-rate 16000 --raw-chan 1 recording.raw recording.opus
 ```
-
