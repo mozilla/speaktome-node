@@ -26,16 +26,16 @@
   },
   "homepage": "https://github.com/mozilla/speaktome-node#readme",
   "devDependencies": {
-    "eslint": "^5.7.0",
-    "eslint-plugin-mozilla": "^0.16.1",
+    "eslint": "^5.9.0",
+    "eslint-plugin-mozilla": "^1.0.0",
     "eslint-plugin-no-unsanitized": "^3.0.2",
     "nodeunit": "^0.11.3",
-    "prettier": "^1.14.3"
+    "prettier": "^1.15.2"
   },
   "dependencies": {
-    "node-fetch": "^2.2.0",
+    "node-fetch": "^2.3.0",
     "mic": "^2.1.2",
-    "node-opus": "^0.3.0",
+    "node-opus": "^0.3.1",
     "ogg": "^1.2.5"
   }
 }
