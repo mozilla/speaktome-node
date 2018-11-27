@@ -1,42 +1,42 @@
-var fetch = require('node-fetch');
-var mic = require('mic');
-var opus = require('node-opus');
-var ogg = require('ogg');
+var fetch = require("node-fetch");
+var mic = require("mic");
+var opus = require("node-opus");
+var ogg = require("ogg");
 
-var STT_SERVER_URL = 'https://speaktome-2.services.mozilla.com/';
+var STT_SERVER_URL = "https://speaktome-2.services.mozilla.com/";
 
 function sendRecordingToServer(opusBuffer, options) {
   var config = {
-    language: 'en-US',
+    language: "en-US",
     productTag: null,
     storeSample: false,
     storeTranscription: false,
   };
 
-  if (typeof options === 'object') {
+  if (typeof options === "object") {
     if (options.language) {
       config.language = options.language;
     }
     if (options.productTag) {
       config.productTag = options.productTag;
     }
-    if (typeof options.storeSample === 'boolean') {
+    if (typeof options.storeSample === "boolean") {
       config.storeSample = options.storeSample;
     }
-    if (typeof options.storeTranscription === 'boolean') {
+    if (typeof options.storeTranscription === "boolean") {
       config.storeTranscription = options.storeTranscription;
     }
   }
 
   return new Promise(function(resolve, reject) {
     var headers = {
-      'Accept-Language-STT': config.language,
-      'Store-Sample': config.storeSample ? '1' : '0',
-      'Store-Transcription': config.storeTranscription ? '1' : '0',
+      "Accept-Language-STT": config.language,
+      "Store-Sample": config.storeSample ? "1" : "0",
+      "Store-Transcription": config.storeTranscription ? "1" : "0",
     };
 
     if (config.productTag) {
-      headers['Product-Tag'] = config.productTag;
+      headers["Product-Tag"] = config.productTag;
     }
 
     fetch(STT_SERVER_URL, {
@@ -44,18 +44,17 @@ function sendRecordingToServer(opusBuffer, options) {
       body: opusBuffer,
       headers: headers,
     })
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(json) {
-      if (json.status === "ok") {
-        resolve(json.data);
-      }
-      else {
-        reject('Unexpected response from server: ' + JSON.stringify(json));
-      }
-    })
-    .catch(reject);
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(json) {
+        if (json.status === "ok") {
+          resolve(json.data);
+        } else {
+          reject("Unexpected response from server: " + JSON.stringify(json));
+        }
+      })
+      .catch(reject);
   });
 }
 
@@ -67,10 +66,10 @@ exports.send = sendRecordingToServer;
 function record(options) {
   return new Promise((res, rej) => {
     var micInstance = mic({
-      'rate': '16000',
-      'channels': '1',
-      'debug': true,
-      'exitOnSilence': 3
+      rate: "16000",
+      channels: "1",
+      debug: true,
+      exitOnSilence: 3,
     });
 
     var micInputStream = micInstance.getAudioStream();
@@ -85,32 +84,34 @@ function record(options) {
 
     var bufs = [];
 
-    oggEncoder.on('data', function(buffer) {
+    oggEncoder.on("data", function(buffer) {
       bufs.push(buffer);
     });
 
-    oggEncoder.on('end', function() {
+    oggEncoder.on("end", function() {
       // Package up encoded recording into buffer to send
       // over the network to the API endpoint.
       var buffer = Buffer.concat(bufs);
 
-      sendRecordingToServer(buffer, options).then(results => {
-        res(results);
-      }).catch(err => {
-        console.error('ERR', err);
-        rej(err);
-      });
+      sendRecordingToServer(buffer, options)
+        .then((results) => {
+          res(results);
+        })
+        .catch((err) => {
+          console.error("ERR", err);
+          rej(err);
+        });
     });
 
-    micInputStream.on('silence', function() {
+    micInputStream.on("silence", function() {
       // Stop recording at first silence after speaking.
       micInstance.stop();
     });
 
-    micInputStream.on('error', function(err) {
+    micInputStream.on("error", function(err) {
       console.error("Error in Input Stream: " + err);
     });
-     
+
     micInstance.start();
   });
 }
