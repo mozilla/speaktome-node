@@ -6,7 +6,7 @@ const ogg = require("ogg");
 const STT_SERVER_URL = "https://speaktome-2.services.mozilla.com/";
 
 function sendRecordingToServer(opusBuffer, options) {
-  const config = {
+  var config = {
     language: "en-US",
     productTag: null,
     storeSample: false,
@@ -29,7 +29,7 @@ function sendRecordingToServer(opusBuffer, options) {
   }
 
   return new Promise(function(resolve, reject) {
-    const headers = {
+    var headers = {
       "Accept-Language-STT": config.language,
       "Store-Sample": config.storeSample ? "1" : "0",
       "Store-Transcription": config.storeTranscription ? "1" : "0",
@@ -65,24 +65,24 @@ exports.send = sendRecordingToServer;
 // from server.
 function record(options) {
   return new Promise((res, rej) => {
-    const micInstance = mic({
+    var micInstance = mic({
       rate: "16000",
       channels: "1",
       debug: true,
       exitOnSilence: 3,
     });
 
-    const micInputStream = micInstance.getAudioStream();
+    var micInputStream = micInstance.getAudioStream();
 
     // Encode the file as Opus in an Ogg container, to send to server.
-    const rate = 16000;
-    const channels = 1;
-    const opusEncodeStream = new opus.Encoder(rate, channels);
-    const oggEncoder = new ogg.Encoder();
+    var rate = 16000;
+    var channels = 1;
+    var opusEncodeStream = new opus.Encoder(rate, channels);
+    var oggEncoder = new ogg.Encoder();
 
     micInputStream.pipe(opusEncodeStream).pipe(oggEncoder.stream());
 
-    const bufs = [];
+    var bufs = [];
 
     oggEncoder.on("data", function(buffer) {
       bufs.push(buffer);
@@ -91,7 +91,7 @@ function record(options) {
     oggEncoder.on("end", function() {
       // Package up encoded recording into buffer to send
       // over the network to the API endpoint.
-      const buffer = Buffer.concat(bufs);
+      var buffer = Buffer.concat(bufs);
 
       sendRecordingToServer(buffer, options)
         .then((results) => {
