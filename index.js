@@ -1,9 +1,9 @@
-var fetch = require("node-fetch");
-var mic = require("mic");
-var opus = require("node-opus");
-var ogg = require("ogg");
+const fetch = require("node-fetch");
+const mic = require("mic");
+const opus = require("node-opus");
+const ogg = require("ogg");
 
-var STT_SERVER_URL = "https://speaktome-2.services.mozilla.com/";
+const STT_SERVER_URL = "https://speaktome-2.services.mozilla.com/";
 
 function sendRecordingToServer(opusBuffer, options) {
   var config = {
